@@ -59,7 +59,7 @@ $ docker build -t <your_image_name_here>[:<tag name>] ./kafka
 Example: Build an image from this Dockerfile with name rever/kafka and tag latest
 ```sh
 $ docker build -t rever/kafka:latest ./kafka
-
+```
 ### Run
 
 Run with default configuration
