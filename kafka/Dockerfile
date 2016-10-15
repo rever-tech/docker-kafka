@@ -22,6 +22,6 @@ ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
 #9092 is kafka
 EXPOSE 9092
 
-VOLUME ["/opt/kafka/config", "/data/kafka"]
+VOLUME ["/opt/kafka/config"]
 
 ENTRYPOINT ["/usr/bin/start-kafka.sh"]

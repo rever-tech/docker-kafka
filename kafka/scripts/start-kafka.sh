@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CONFIG_FILE="/opt/kafka/config/server.properties"
-ZOOKEEPER="localhost:2191"
+ZOOKEEPER="zk:2191"
 ADV_HOST=0.0.0.0
 ADV_PORT=9092
 
@@ -30,7 +30,7 @@ case $key in
 	read -a PAIR <<< "$2"
 	# echo "${PAIR[@]}"
 	if [ ${#PAIR[@]} -ne 2 ]; then 
-		echo "Custom configuration must be declare as -D<key>=<value>"
+		echo "Custom configuration must be declare as -D <key>=<value>"
 		exit 1
 	fi
 	otherConfig[${PAIR[0]}]=${PAIR[1]}
