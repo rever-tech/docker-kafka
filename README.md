@@ -30,7 +30,7 @@ $ docker run -d -p <your_external_http_port>:2181 \
     -v <folder_contains_config_file_on_host>:/opt/zookeeper/conf \
     -v <data_folder_on_host>:<data_folder_on_container>:rw \
     [--name <your_container_name>] \
-    r3v3r/zookeeper [<your_custom_config>]
+    r3v3r/zookeeper
 ```
 NOTE: <data_folder_on_container> must be the same with `dataDir` in config file, default is `/data/zookeeper`
 
@@ -73,7 +73,7 @@ Run with custom configuration
 $ docker run -d -p <your_external_port>:9092 \
 	[-v <folder_contains_config_file_on_host>:<folder_contains_config_file_in_container>] \
 	[--name <your_container_name>] \
-	r3v3r/kafka \
+	r3v3r/kafka kafka-server \
 	[-c <path_to_server_config_file>] \
 	[-z <zookeeper_host>:<zookeeper_port>] \
 	[[-D <config_key>=<config_value>]...]
@@ -83,7 +83,7 @@ NOTE: Configuration passed via params will override configuration value in confi
 Example:
 ```sh
 $ docker run -d -p 9092:9092 \
-	r3v3r/kafka \
+	r3v3r/kafka kafka-server \
 	-z 172.17.0.12:2181 \
 	-D auto.create.topics.enable=true \
 	-D advertised.host.name=0.0.0.0 

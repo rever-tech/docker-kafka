@@ -18,10 +18,12 @@ RUN apt-get update && \
     rm /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz
 
 ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
+ADD scripts/entrypoint.sh /entrypoint.sh
 
 #9092 is kafka
 EXPOSE 9092
 
 VOLUME ["/opt/kafka/config"]
 
-ENTRYPOINT ["/usr/bin/start-kafka.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["kafka-server"]

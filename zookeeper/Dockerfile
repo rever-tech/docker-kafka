@@ -17,7 +17,9 @@ RUN apt-get install -y wget \
 EXPOSE 2181 2888 3888
 WORKDIR /opt/zookeeper
 
+ADD scripts/entrypoint.sh /entrypoint.sh
+
 VOLUME ["/opt/zookeeper/conf", "/data/zookeeper"]
 
-ENTRYPOINT ["/opt/zookeeper/bin/zkServer.sh"]
-CMD ["start-foreground"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["zookeeper"]

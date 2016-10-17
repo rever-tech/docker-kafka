@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CONFIG_FILE="/opt/kafka/config/server.properties"
-ZOOKEEPER="zk:2191"
+ZOOKEEPER="zk:2181"
 ADV_HOST=0.0.0.0
 ADV_PORT=9092
 
