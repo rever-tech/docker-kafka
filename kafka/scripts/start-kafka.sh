@@ -4,6 +4,7 @@ CONFIG_FILE="/opt/kafka/config/server.properties"
 ZOOKEEPER="zk:2181"
 ADV_HOST=0.0.0.0
 ADV_PORT=9092
+LOGDIR="/opt/kafka/data"
 
 declare -A otherConfig
 
@@ -36,6 +37,10 @@ case $key in
 	otherConfig[${PAIR[0]}]=${PAIR[1]}
 	shift # past argument
 	;;
+	--logdir)
+	LOGDIR="$2"
+	shift
+	;;
     *)
             # unknown option
     ;;
@@ -46,15 +51,25 @@ done
 echo "CONFIG_FILE=$CONFIG_FILE"
 echo "ZOOKEEPER=$ZOOKEEPER"
 
+#Change zookeeper host:port
 sed -i "s,zookeeper.connect=.*,zookeeper.connect=$ZOOKEEPER,g" $CONFIG_FILE
+
+#Change advertised host
 grep -q -E "^#?advertised.host.name=" $CONFIG_FILE && \
 	sed -r -i "s,#?advertised.host.name=.*,advertised.host.name=$ADV_HOST,g" $CONFIG_FILE \
 	|| echo "advertised.host.name=$ADV_HOST" >> $CONFIG_FILE
 
+#Change log.dir
+grep -q -E "^#?log.dir=" $CONFIG_FILE && \
+	sed -r -i "s,#?log.dir=.*,log.dir=$LOGDIR,g" $CONFIG_FILE \
+	|| echo "log.dir=$LOGDIR" >> $CONFIG_FILE
+
+#Change advertised port
 grep -q -E "^#?advertised.port=" $CONFIG_FILE && \
 	sed -r -i "s,#?advertised.port=.*,advertised.port=$ADV_PORT,g" $CONFIG_FILE \
 	|| echo "advertised.port=$ADV_PORT" >> $CONFIG_FILE
 
+#Change others config
 for k in "${!otherConfig[@]}"
 do
 	grep -q -E "^#?${k}=" $CONFIG_FILE && \

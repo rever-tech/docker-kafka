@@ -23,7 +23,7 @@ ADD scripts/entrypoint.sh /entrypoint.sh
 #9092 is kafka
 EXPOSE 9092
 
-VOLUME ["/opt/kafka/config"]
+VOLUME ["/opt/kafka/config", "/opt/kafka/data"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["kafka-server"]
